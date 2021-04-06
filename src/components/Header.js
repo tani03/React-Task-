@@ -1,9 +1,9 @@
 import Button from './Button'
 import Tasks from './Tasks'
-const header = ({title}) => {
+const header = ({title, onAdd,showAdd}) => {
     const onClick=()=>{
-        console.log('Click')
-        alert("Clicked")
+        onAdd()
+     
     }
 
     return (
@@ -11,7 +11,7 @@ const header = ({title}) => {
         <header>
            
             <h2>{title}</h2>
-            <Button color='orange' text='Add' onClick={onClick}/>
+            <Button color={showAdd?'red':'orange'} text={showAdd?'Close':'Add'} onClick={onClick}/>
 
         </header>
         

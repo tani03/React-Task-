@@ -1,13 +1,15 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 import {useState} from 'react'
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import MainHeader from './components/MainHeader'
 function App() {
-  const name='Taniya'
-  const x=false
+  
+  const[showAddTask,setShowAddTask] = useState
+  (false)
 
   
   const deleteTask=(id)=>{
@@ -18,6 +20,14 @@ function App() {
   //toggle reminder
   const toggleReminder=(id)=>{
     setTasks(tasks.map((task)=>task.id==id?{...task,reminder:!task.reminder}:task))
+  }
+
+  //Add Task
+  const addTask=(task)=>{
+    const id=Math.floor(Math.random()*1000)+1
+    const newTask={id, ...task}
+    setTasks()
+ 
   }
 
   const [tasks,setTasks]=useState(
@@ -48,7 +58,8 @@ function App() {
 
     <div>
       <MainHeader />
-      <Header title='Task Tracker'/>
+      <Header title='Task Tracker' onAdd={()=>setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+      {showAddTask && <AddTask onAdd={addTask}/>}
       {tasks.length>0 ?
         (<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />)
         : (
